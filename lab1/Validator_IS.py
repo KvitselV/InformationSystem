@@ -1,24 +1,22 @@
 class Validator:
     @staticmethod
-    def validate_name(value, field_name):
-        if not value or not value.isalpha():
-            raise ValueError(f"{field_name} должна содержать только буквы.")
-        return value
-
-    @staticmethod
     def validate_non_empty(value, field_name):
-        if not value:
+        if not value or not value.strip():
             raise ValueError(f"{field_name} не может быть пустым.")
-        return value
+        return value.strip()
 
     @staticmethod
     def validate_date(value):
-        if not isinstance(value, date) or value > date.today():
-            raise ValueError("Некорректная дата рождения.")
+        if not isinstance(value, (date, datetime)):
+            raise ValueError("Дата должна быть типа date.")
+        if value > date.today():
+            raise ValueError("Дата не может быть в будущем.")
         return value
 
     @staticmethod
     def validate_phone(value):
-        if not value or not value.startswith("+") or not value[1:].isdigit() or len(value) < 10:
-            raise ValueError("Телефон должен быть в формате +XXXXXXXXXX.")
-        return value
+        if not value or not value.strip():
+            raise ValueError("Телефон не может быть пустым.")
+        if not value.isdigit() or not (10 <= len(value) <= 15):
+            raise ValueError("Телефон должен содержать только цифры длиной от 10 до 15.")
+        return value.strip()
