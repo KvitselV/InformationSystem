@@ -2,38 +2,62 @@ from datetime import date
 
 class Soiskatel:
     def __init__(self, fam, imya, otchestvo, kvalifikaciya, professiya, data_rozhdeniya, telefon, adres):
-        self.fam = self.validate_name(fam, "Фамилия")
-        self.imya = self.validate_name(imya, "Имя")
-        self.otchestvo = otchestvo
-        self.kvalifikaciya = self.validate_non_empty(kvalifikaciya, "Квалификация")
-        self.professiya = self.validate_non_empty(professiya, "Профессия")
-        self.data_rozhdeniya = self.validate_date(data_rozhdeniya)
-        self.telefon = self.validate_phone(telefon)
-        self.adres = adres
+        # Приватные поля
+        self.__fam = fam
+        self.__imya = imya
+        self.__otchestvo = otchestvo
+        self.__kvalifikaciya = kvalifikaciya
+        self.__professiya = professiya
+        self.__data_rozhdeniya = data_rozhdeniya
+        self.__telefon = telefon
+        self.__adres = adres
 
-    # Геттеры и сеттеры с валидацией
-    def validate_name(self, value, field_name):
-        if not value or not value.isalpha():
-            raise ValueError(f"{field_name} должна содержать только буквы.")
-        return value
+    # Геттеры для доступа к данным
+    def get_fam(self):
+        return self.__fam
 
-    def validate_non_empty(self, value, field_name):
-        if not value:
-            raise ValueError(f"{field_name} не может быть пустым.")
-        return value
+    def get_imya(self):
+        return self.__imya
 
-    def validate_date(self, value):
-        if not isinstance(value, date) or value > date.today():
-            raise ValueError("Некорректная дата рождения.")
-        return value
+    def get_otchestvo(self):
+        return self.__otchestvo
 
-    def validate_phone(self, value):
-        if not value or not value.startswith("+") or not value[1:].isdigit() or len(value) < 10:
-            raise ValueError("Телефон должен быть в формате +XXXXXXXXXX.")
-        return value
+    def get_kvalifikaciya(self):
+        return self.__kvalifikaciya
 
-    def __str__(self):
-        return f"{self.fam} {self.imya} {self.otchestvo}, {self.professiya}, {self.kvalifikaciya}"
+    def get_professiya(self):
+        return self.__professiya
 
-    def short_info(self):
-        return f"{self.fam} {self.imya[0]}. {self.otchestvo[0]}."
+    def get_data_rozhdeniya(self):
+        return self.__data_rozhdeniya
+
+    def get_telefon(self):
+        return self.__telefon
+
+    def get_adres(self):
+        return self.__adres
+
+    # Сеттеры для изменения данных
+    def set_fam(self, fam):
+        self.__fam = fam
+
+    def set_imya(self, imya):
+        self.__imya = imya
+
+    def set_otchestvo(self, otchestvo):
+        self.__otchestvo = otchestvo
+
+    def set_kvalifikaciya(self, kvalifikaciya):
+        self.__kvalifikaciya = kvalifikaciya
+
+    def set_professiya(self, professiya):
+        self.__professiya = professiya
+
+    def set_data_rozhdeniya(self, data_rozhdeniya):
+        self.__data_rozhdeniya = data_rozhdeniya
+
+    def set_telefon(self, telefon):
+        self.__telefon = telefon
+
+    def set_adres(self, adres):
+        self.__adres = adres
