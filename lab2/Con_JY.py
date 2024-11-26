@@ -37,5 +37,13 @@ class Soiskatel_rep_json(Soiskatel_rep):
     def write_all(self, data):
         with open(self.file_name, "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
+            
+class Soiskatel_rep_yaml(Soiskatel_rep):
+    def read_all(self):
+        with open(self.file_name, "r", encoding="utf-8") as file:
+            return yaml.load(file)
 
-# и аналогичный класс для YAML
+    def write_all(self, data):
+        with open(self.file_name, "w", encoding="utf-8") as file:
+            yaml.dump(data, file, ensure_ascii=False, indent=4)
+
