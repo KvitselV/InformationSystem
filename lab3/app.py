@@ -152,7 +152,7 @@ class MainView(tk.Tk):
             self.table.delete(row)
         for rec in records:
             self.table.insert("", tk.END, values=(rec.id, rec.fam, rec.imya, rec.otchestvo, rec.kvalifikaciya, rec.professiya, rec.data_rozhdeniya, rec.telefon, rec.adres))
-
+#Описание: Окно RecordView собирает данные с полей ввода. Производится валидация данных через функцию validate_soiskatel. Сохранение данных делегируется контроллеру.
 class RecordView(tk.Toplevel):
     def __init__(self, controller, soiskatel=None):
         super().__init__()
@@ -213,7 +213,7 @@ class MainController:
         if field:
             records = self.repo.sort_by_field(field)
             self.view.update_table(records)
-
+#Метод add_record в MainController вызывает контроллер для управления добавлением записи (RecordController).
     def add_record(self):
         RecordController(self, self.repo).open_window()
 
@@ -231,7 +231,7 @@ class MainController:
             record_id = self.view.table.item(selected[0], "values")[0]
             if messagebox.askyesno("Подтверждение", "Удалить запись?"):
                 self.repo.delete(int(record_id))
-
+#Описание: Контроллер RecordController открывает окно для ввода новой записи.
 class RecordController:
     def __init__(self, parent_controller, repo, soiskatel=None):
         self.parent_controller = parent_controller
@@ -240,7 +240,9 @@ class RecordController:
 
     def open_window(self):
         RecordView(self, self.soiskatel)
-
+#Описание:
+#Если запись новая, создается объект Soiskatel, который передается в репозиторий для добавления.
+#Репозиторий уведомляет главную таблицу через наблюдателя.
     def save_record(self, data, soiskatel):
         if soiskatel:
             soiskatel.fam = data['fam']
